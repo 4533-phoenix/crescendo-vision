@@ -9,8 +9,8 @@ class Camera:
     cam: Picamera2
 
     def __init__(self):
-        cam = Picamera2()
-        cam.resolution = (1080, 720)
+        self.cam = Picamera2()
+        self.cam.resolution = (1080, 720)
 
     def start_cap(self):
         '''

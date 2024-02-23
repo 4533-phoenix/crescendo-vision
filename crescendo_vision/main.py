@@ -1,4 +1,4 @@
-from .camera import Camera
+from camera import Camera
 import cv2
 
 print('FRC Team 4533 "Phoenix" -- 2024 Crescendo Vision')
