@@ -10,13 +10,11 @@ class Camera:
 
     cam: Picamera2
     enc: H264Encoder
-    out: FfmpegOutput
 
     def __init__(self):
         self.cam = Picamera2()
         self.cam.resolution = (1080, 720)
         self.enc = H264Encoder(bitrate=50000, repeat=True, iperiod=15)
-        self.out = FfmpegOutput("out.h264")
 
     def start_cap(self):
         '''
@@ -24,14 +22,14 @@ class Camera:
         '''
 
         # TODO(lincoln): figure out how to plug it into actual ffmpeg
-        self.cam.start_recording(self.enc, self.out)
+        self.cam.start_encoder(self.enc)
     
     def stop_cap(self):
         '''
         Stop capturing video
         '''
 
-        self.cam.stop_recording()
+        self.cam.stop_encoder()
     
     def get_frame(self) -> np.ndarray:
         '''
