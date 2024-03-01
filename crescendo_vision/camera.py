@@ -10,18 +10,10 @@ class Camera:
     '''
 
     cam: Picamera2
-    enc: H264Encoder
-    out: FileOutput
-    buf: io.BytesIO
 
     def __init__(self):
         self.cam = Picamera2()
         self.cam.resolution = (640,480)
-
-        self.enc = H264Encoder(bitrate=50000, repeat=True, iperiod=15)
-        
-        self.buf = io.BytesIO()
-        self.out = FileOutput(self.buf)
 
     def start_cap(self):
         '''
@@ -46,6 +38,3 @@ class Camera:
         '''
 
         self.cam.capture_array()
-
-    def get_packet(self) -> bytes:
-        self.buf.getvalue()

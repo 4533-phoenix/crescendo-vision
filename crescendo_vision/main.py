@@ -1,5 +1,5 @@
 from camera import Camera
-from crescendo_vision.notedetector import NoteDetector
+from notedetector import NoteDetector
 from nts import NT
 
 print('FRC Team 4533 "Phoenix" -- 2024 Crescendo Vision')
@@ -25,19 +25,22 @@ while True:
     # Get a frame from the camera
     frame = cam.get_frame()
 
-    # Run note detector on frame
-    notes = ai.process_frame(frame)
+    # If the frame isn't null
+    #   i.e. the camera has began returning frames
+    if frame is not None:
+        # Run note detector on frame
+        notes = ai.process_frame(frame)
 
-    # If any notes were detected...
-    if len(notes) > 0:
-        # Sort by distance to note (area of the bounding box) in descending order
-        notes.sort(key='area', reverse=True)
+        # If any notes were detected...
+        if len(notes) > 0:
+            # Sort by distance to note (area of the bounding box) in descending order
+            notes.sort(key='area', reverse=True)
 
-        # Take the closest one
-        closestNote = notes.first()
+            # Take the closest one
+            closestNote = notes.first()
 
-        # Let auto know via nettables
-        nt.putData('x', closestNote['x'])
-        nt.putData('y', closestNote['y'])
-        nt.putData('width', closestNote['width'])
-        nt.putData('height', closestNote['height'])
+            # Let auto know via nettables
+            nt.putData('x', closestNote['x'])
+            nt.putData('y', closestNote['y'])
+            nt.putData('width', closestNote['width'])
+            nt.putData('height', closestNote['height'])
