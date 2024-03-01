@@ -1,16 +1,18 @@
-from networktables import NetworkTables
+from networktables import NetworkTables, NetworkTable
+import socket
 
 class NT:
+    nt: NetworkTable
+    
     def __init__(self):
         NetworkTables.initialize(server = "10.45.33.2")
-        self.sd = NetworkTables.getTable("SmartDashboard")
+        self.nt = NetworkTables.getTable(socket.gethostname())
     
-    def putData(self, data):
-        self.sd.putRaw("data", data)
+    def putData(self, kind: str, data):
+        self.nt.putValue(kind, data)
 
-    def getIt(self):
-        return self.sd.getRaw("data", "apush")
-
+    def getValue(self, kind: str):
+        self.nt.getValue(kind, defaultValue='')
 
 
     
