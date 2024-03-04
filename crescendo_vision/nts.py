@@ -1,9 +1,10 @@
-from networktables import NetworkTables, NetworkTable
+from networktables import NetworkTables
+import networktables
 import socket
 
 class NT:
-    nt: NetworkTable
-    
+    nt: NetworkTables
+
     def __init__(self):
         NetworkTables.initialize(server = "10.45.33.2")
         self.nt = NetworkTables.getTable(socket.gethostname())
