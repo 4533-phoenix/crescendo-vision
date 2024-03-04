@@ -1,9 +1,5 @@
-import os
 import cv2
 import numpy as np
-import sys
-import glob
-import random
 import tflite_runtime.interpreter as tflite
 
 class NoteDetector:
@@ -11,8 +7,9 @@ class NoteDetector:
     Note detection w/ Coral Edge TPU
     '''
 
-    model_path: str           = 'ssdmobilenet.tflite'
-    labelmap_path: str        = 'labelmap.pbtxt'
+    base_path: str            = '/home/pi/crescendo-vision'
+    model_path: str           = f'{base_path}/ssdmobilenet.tflite'
+    labelmap_path: str        = f'{base_path}/labelmap.pbtxt'
     min_conf_threshold: float = 0.5
     input_mean: float         = 127.5
     input_std: float          = 127.5
@@ -57,6 +54,8 @@ class NoteDetector:
         scores = self.interpreter.get_tensor(self.output_details[0]['index'])[0]
     
         imH, imW, _ = frame.shape
+
+        ret = []
     
         for i in range(len(scores)):
             if ((scores[i] > self.min_conf_threshold) and (scores[i] <= 1.0)):
@@ -64,10 +63,26 @@ class NoteDetector:
                 xmin = int(max(1,(boxes[i][1] * imW)))
                 ymax = int(min(imH,(boxes[i][2] * imH)))
                 xmax = int(min(imW,(boxes[i][3] * imW)))
+
+                width = xmax-xmin
+                height = ymax-ymin
+                weight = width*(height/3)
+
+                centerX = xmin+(width/2)
+                centerY = ymin+(height/2)
     
                 if int(classes[i]) == 1:
                     objKind = 'note'
                 else:
                     objKind = 'robot'
+                
+                if objKind == 'note':
+                    ret += [{
+                        'x': centerX,
+                        'y': centerY,
+                        'width': width,
+                        'height': height,
+                        'weight': weight,
+                    }]
 
-                print(f'{objKind}: x: {xmin}-{xmax} / y: {ymin}-{ymax}')
+        return ret
