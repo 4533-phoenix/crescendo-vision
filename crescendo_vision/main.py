@@ -40,17 +40,18 @@ while True:
         frame = cam.get_frame()
         if frame is not None:
             print('got frame')
-            # Run note detector on frame
-            notes = ai.process_frame(frame)
-    
+            
             image_resized = cv2.resize(frame, (720, 480))
             input_data = np.expand_dims(image_resized, axis=0)
     
-            _, buffer = cv2.imencode('.jpeg', frame, [int(cv2.IMWRITE_JPEG_QUALITY), 50])
+            _, buffer = cv2.imencode('.jpeg', frame, [int(cv2.IMWRITE_JPEG_QUALITY), 70])
             try:
                 sock.send(f'--frame\r\nContent-Type: image/jpeg\r\nContent-Length: {len(buffer)}\r\n\r\n'.encode('utf-8') + buffer.tobytes() + '\r\n\r\n'.encode('utf-8'))
             except:
                 break
+
+            # Run note detector on frame
+            notes = ai.process_frame(frame)
     
             # If any notes were detected...
             if len(notes) > 0:
