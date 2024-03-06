@@ -54,6 +54,7 @@ class NoteDetector:
         scores = self.interpreter.get_tensor(self.output_details[0]['index'])[0]
     
         imH, imW, _ = frame.shape
+        HimH, HimW = (imH/2, imW/2)
 
         ret = []
     
@@ -68,8 +69,8 @@ class NoteDetector:
                 height = ymax-ymin
                 weight = width*(height/3)
 
-                centerX = xmin+(width/2)
-                centerY = ymin+(height/2)
+                centerX = (xmin+(width/2)-HimW)/HimW
+                centerY = (ymin+(height/2)-HimH)/HimH
     
                 if int(classes[i]) == 1:
                     objKind = 'note'
