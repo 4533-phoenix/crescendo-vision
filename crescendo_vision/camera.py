@@ -1,6 +1,7 @@
 import io
 import numpy as np
 from picamera2 import Picamera2
+from libcamera import controls
 
 class Camera:
     '''
@@ -11,18 +12,19 @@ class Camera:
 
     def __init__(self):
         self.cam = Picamera2()
-        self.cam.resolution = (1080, 720)
+        self.cam.resolution = (720, 480)
 
     def start_cap(self):
         '''
         Start capturing video
         '''
-        cfg = self.cam.create_video_configuration({
+        cfg = self.cam.create_video_configuration(main={
+            'size': (720, 480),
             'format': 'RGB888'
             })
         self.cam.configure(cfg)
-        self.cam.resolution = (640,480)
         self.cam.start()
+        self.cam.set_controls({'AfMode': controls.AfModeEnum.Continuous})
     
     def stop_cap(self):
         '''
