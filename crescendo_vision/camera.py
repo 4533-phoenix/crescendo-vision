@@ -1,6 +1,6 @@
 import threading
 import numpy as np
-from picamera2 import Picamera2, Preview
+from picamera2 import Picamera2
 from libcamera import controls
 
 class Camera:
@@ -28,7 +28,6 @@ class Camera:
         '''
         Start capturing video
         '''
-        self.cam.start_preview(Preview.QTGL)
         cfg = self.cam.create_video_configuration(main={
             'size': self.normal_resolution,
             'format': 'RGB888'
