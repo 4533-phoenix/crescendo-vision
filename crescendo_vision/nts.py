@@ -3,13 +3,13 @@ import socket
 
 class NT:
     nt: NetworkTable
+
+    def publishCamera(url: str):
+        NetworkTables.getTable('CameraPublisher').getSubTable('note-detector').setDefaultValue('streams', [f'mjpg:{url}'])
     
     def __init__(self):
-        NetworkTables.initialize(server = "10.45.33.2")
+        NetworkTables.initialize(server = '10.45.33.2')
         self.nt = NetworkTables.getTable(socket.gethostname())
-
-    def publishCamera():
-        NetworkTables.getTable('CameraPublisher').getSubTable('note-detector').setDefaultValue('streams', ['mjpg:http://note-detector.local:1181/'])
     
     def putData(self, kind: str, data):
         self.nt.putValue(kind, data)
