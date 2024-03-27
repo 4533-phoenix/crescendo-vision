@@ -14,7 +14,7 @@ class Camera:
         self.cam = Picamera2()
         self.cam.resolution = resolution
 
-        self.frame = (0, None)
+        self.frame = None
         self.running = False
         self.thread = None
 

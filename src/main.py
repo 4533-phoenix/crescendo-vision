@@ -41,6 +41,7 @@ def main():
         frame = cam.get_frame()
 
         if frame is not None:
+            # print(frame.shape)
             # Put the frame in the queue for processing
             input_queue.put(frame)
 
