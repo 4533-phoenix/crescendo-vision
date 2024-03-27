@@ -23,5 +23,7 @@ pip install -r requirements.txt
 
 # copy install/vision.service to /etc/systemd/system/vision.service
 sudo cp install/vision.service /etc/systemd/system/vision.service
+sudo sed -i "s|%path%|$(pwd)|g" /etc/systemd/system/vision.service
+sudo chmod 644 /etc/systemd/system/vision.service
 sudo systemctl enable vision.service
 sudo systemctl start vision.service
