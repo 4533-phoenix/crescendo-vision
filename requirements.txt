@@ -1,5 +1,6 @@
+-i https://google-coral.github.io/py-repo/
 picamera2
 rpi-libcamera
 ultralytics
-pycoral
+pycoral~=2.0
 dill

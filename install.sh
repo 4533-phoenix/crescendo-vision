@@ -1,3 +1,7 @@
+# start
+echo "Starting installation"
+echo "Hope everything goes well!"
+
 # install coral usb driver
 echo "Installing Coral USB driver"
 echo "deb https://packages.cloud.google.com/apt coral-edgetpu-stable main" | sudo tee /etc/apt/sources.list.d/coral-edgetpu.list
@@ -22,7 +26,6 @@ pyenv local 3.9.18
 echo "Installing packages"
 sudo apt install libcap-dev libcamera-dev pkg-config g++ -y
 pip install --upgrade pip
-pip install --extra-index-url https://google-coral.github.io/py-repo/ pycoral~=2.0
 pip install -r requirements.txt
 
 # install service
@@ -32,3 +35,8 @@ sudo sed -i "s|%path%|$(pwd)|g" /etc/systemd/system/vision.service
 sudo chmod 644 /etc/systemd/system/vision.service
 sudo systemctl enable vision.service
 sudo systemctl start vision.service
+
+# finish
+echo "Installation complete"
+echo "Read through logs to ensure everything is working as expected"
+echo "Have a great day!"
