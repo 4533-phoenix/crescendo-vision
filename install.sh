@@ -24,9 +24,16 @@ pyenv local 3.9.18
 
 # install packages
 echo "Installing packages"
-sudo apt install libcap-dev libcamera-dev pkg-config g++ -y
-pip install --upgrade pip
-pip install -r requirements.txt
+sudo apt install libcap-dev libcamera-dev pkg-config g++ libkms++-dev libfmt-dev libdrm-dev ffmpeg libsm6 libxext6 libatlas-base-dev libopenjp2-7  -y
+python3 -m pip install --upgrade pip
+python3 -m pip install -r requirements.txt
+
+# modify config
+echo "Modifying config"
+sudo echo -e '\n' >> /boot/config.txt
+sudo echo '#-------Vision service-------' >> /boot/config.txt
+sudo echo 'dtoverlay=vc4-kms-v3d' >> /boot/config.txt
+sudo echo 'camera_auto_detect=1' >> /boot/config.txt
 
 # install service
 echo "Installing service"
@@ -34,9 +41,8 @@ sudo cp install/vision.service /etc/systemd/system/vision.service
 sudo sed -i "s|%path%|$(pwd)|g" /etc/systemd/system/vision.service
 sudo chmod 644 /etc/systemd/system/vision.service
 sudo systemctl enable vision.service
-sudo systemctl start vision.service
 
 # finish
 echo "Installation complete"
-echo "Read through logs to ensure everything is working as expected"
+echo "Read through logs to ensure everything is working as expected. If so, reboot the system to start the service."
 echo "Have a great day!"

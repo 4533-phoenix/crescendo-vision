@@ -10,7 +10,7 @@ FILE_LOCATION = os.path.dirname(os.path.realpath(__file__))
 
 def process_frame(input_queue: multiprocessing.Queue, output_queue: multiprocessing.Queue):
     CONF_THRESHOLD = 0.5
-    MODEL = YOLO(os.path.join(FILE_LOCATION, "models/model.tflite"), task="detect")
+    MODEL = YOLO(os.path.join(FILE_LOCATION, "models/YOLOv5n_full_integer_quant_edgetpu.tflite"), task="detect")
 
     while True:
         if not input_queue.empty():

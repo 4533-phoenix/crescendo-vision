@@ -4,3 +4,7 @@ rpi-libcamera
 ultralytics
 pycoral~=2.0
 dill
+rpi-kms
+networktables
+numpy
+tflite-runtime
