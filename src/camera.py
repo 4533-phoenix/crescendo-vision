@@ -1,6 +1,5 @@
 import threading
 import numpy as np
-import time
 from picamera2 import Picamera2
 from libcamera import controls
 
@@ -21,7 +20,7 @@ class Camera:
 
     def _capture(self):
         while self.running:
-            self.frame = (time.time(), self.cam.capture_array())
+            self.frame = self.cam.capture_array()
 
     def start_cap(self):
         '''

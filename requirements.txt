@@ -1,4 +1,5 @@
-numpy
 picamera2
-pynetworktables
-tflite_runtime
+rpi-libcamera
+ultralytics
+pycoral
+dill
