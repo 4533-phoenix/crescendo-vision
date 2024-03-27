@@ -2,12 +2,15 @@ from camera import Camera
 from ultralytics import YOLO
 from nts import NT
 import multiprocessing
+import os
 
 print('FRC Team 4533 "Phoenix" -- 2024 Crescendo Vision')
 
+FILE_LOCATION = os.path.dirname(os.path.realpath(__file__))
+
 def process_frame(input_queue: multiprocessing.Queue, output_queue: multiprocessing.Queue):
     CONF_THRESHOLD = 0.5
-    MODEL = YOLO("models/model.tflite", task="detect")
+    MODEL = YOLO(os.path.join(FILE_LOCATION, "models/model.tflite"), task="detect")
 
     while True:
         if not input_queue.empty():
