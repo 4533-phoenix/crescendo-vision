@@ -33,7 +33,7 @@ def main():
     output_queue = multiprocessing.Queue(maxsize=1)
 
     # Start a separate process for processing frames
-    process = multiprocessing.Process(target=process_frame, args=(input_queue, output_queue))
+    process = multiprocessing.Process(target=process_frame, args=(input_queue, output_queue), daemon=True)
     process.start()
 
     while True:

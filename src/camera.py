@@ -35,7 +35,7 @@ class Camera:
         self.cam.set_controls({'AfMode': controls.AfModeEnum.Continuous})
 
         self.running = True
-        self.thread = threading.Thread(target=self._capture)
+        self.thread = threading.Thread(target=self._capture, daemon=True)
         self.thread.start()
     
     def stop_cap(self):
