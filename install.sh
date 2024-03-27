@@ -7,7 +7,7 @@ sudo apt-get update && sudo apt-get install libedgetpu1-max -y
 # install python
 echo "Installing Python"
 sudo apt install git gcc make -y
-sudo apt install libreadline-dev libbz2-dev libssl-dev libncurses5-dev libffi-dev libsqlite3-dev liblzma-dev -y
+sudo apt install build-essential python3-dev python3-pip libreadline-dev libbz2-dev libssl-dev libncurses5-dev libffi-dev libsqlite3-dev liblzma-dev -y
 
 curl https://pyenv.run | bash
 echo 'export PYENV_ROOT="$HOME/.pyenv"' >> ~/.bashrc
